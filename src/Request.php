@@ -6,7 +6,7 @@ namespace Graphpinator\Nette;
 
 final class Request extends \Graphpinator\Request
 {
-    public static function fromNetteHttpRequest(\Nette\Http\Request $request, bool $strict = true) : self
+    public static function fromNetteHttpRequest(\Nette\Http\Request $request, bool $strict = true) : Request
     {
         $method = $request->getMethod();
 
