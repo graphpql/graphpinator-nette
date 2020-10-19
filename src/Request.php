@@ -18,7 +18,7 @@ final class Request extends \Graphpinator\Request
 
         if (\is_string($contentType) && \str_starts_with($contentType, 'multipart/form-data')) {
             if ($method === 'POST' && \array_key_exists('operations', $request->getPost())) {
-                return self::fromJson(\Graphpinator\Json::fromString($request->getPost('operations'), $strict);
+                return self::fromJson(\Graphpinator\Json::fromString($request->getPost('operations')), $strict);
             }
 
             throw new \Graphpinator\Exception\Request\InvalidMultipartRequest();
