@@ -6,7 +6,7 @@ namespace Graphpinator\Nette;
 
 final class Request extends \Graphpinator\Request
 {
-    public static function fromNetteHttpRequest(\Nette\Http\Request $request) : self
+    public static function fromNetteHttpRequest(\Nette\Http\Request $request, bool $strict = true) : self
     {
         $method = $request->getMethod();
 
@@ -18,7 +18,7 @@ final class Request extends \Graphpinator\Request
 
         if (\is_string($contentType) && \str_starts_with($contentType, 'multipart/form-data')) {
             if ($method === 'POST' && \array_key_exists('operations', $request->getPost())) {
-                return self::fromJson(\Graphpinator\Json::fromString($request->getPost('operations'));
+                return self::fromJson(\Graphpinator\Json::fromString($request->getPost('operations'), $strict);
             }
 
             throw new \Graphpinator\Exception\Request\InvalidMultipartRequest();
@@ -28,9 +28,9 @@ final class Request extends \Graphpinator\Request
             case 'application/graphql':
                 return new self($request->getRawBody());
             case 'application/json':
-                return self::fromJson(\Graphpinator\Json::fromString($request->getRawBody()));
+                return self::fromJson(\Graphpinator\Json::fromString($request->getRawBody()), $strict);
             default:
-                return self::fromJson(\Graphpinator\Json::fromObject((object) $request->getQuery()));
+                return self::fromJson(\Graphpinator\Json::fromObject((object) $request->getQuery()), $strict);
         }
     }
 }
