@@ -1,0 +1,41 @@
+{
+  "name": "infinityloop-dev/graphpinator-nette",
+  "description": "Graphpiantor adapters and addon for Nette framework.",
+  "homepage": "https://www.infinityloop.dev/",
+  "type": "library",
+  "license": ["MIT"],
+  "authors": [
+    {
+      "name": "Václav Pelíšek",
+      "homepage": "https://www.peldax.com"
+    }
+  ],
+  "require": {
+    "infinityloop-dev/graphpinator": ">=0.21",
+    "nette/http": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.3",
+    "infection/infection": "^0.18",
+    "infinityloop-dev/coding-standard": "dev-master"
+  },
+  "scripts": {
+    "phpunit": "phpunit tests",
+    "infection": [
+      "Composer\\Config::disableProcessTimeout",
+      "infection -j$(nproc)"
+    ],
+    "codestyle": "phpcs --standard=vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml --extensions=php src tests",
+    "codestyle-fix": "phpcbf --standard=vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml --extensions=php src tests"
+  },
+  "autoload": {
+    "psr-4": {
+      "Graphpinator\\Nette\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Graphpinator\\Nette\\Tests\\": "tests/"
+    }
+  }
+}
