@@ -26,9 +26,9 @@ final class Request extends \Graphpinator\Request
 
         switch ($contentType) {
             case 'application/graphql':
-                return new self($request->getRawBody());
+                return new self($request->getRawBody() ?? '');
             case 'application/json':
-                return self::fromJson(\Graphpinator\Json::fromString($request->getRawBody()), $strict);
+                return self::fromJson(\Graphpinator\Json::fromString($request->getRawBody() ?? '{}'), $strict);
             default:
                 return self::fromJson(\Graphpinator\Json::fromObject((object) $request->getQuery()), $strict);
         }
