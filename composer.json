@@ -12,7 +12,8 @@
   ],
   "require": {
     "infinityloop-dev/graphpinator": ">=0.21.1",
-    "nette/http": "^3.0"
+    "nette/http": "^3.0",
+    "guzzlehttp/psr7": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.3",
