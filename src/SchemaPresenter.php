@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Module\Api\Presenter;
+namespace Graphpinator\Nette;
 
 final class SchemaPresenter extends \Nette\Application\UI\Presenter
 {
