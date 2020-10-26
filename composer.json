@@ -15,6 +15,7 @@
     "nette/http": "^3.0",
     "nette/application": "^3.0",
     "latte/latte": "^2.7",
+    "tracy/tracy": "^2.7",
     "guzzlehttp/psr7": "^1.0"
   },
   "require-dev": {
