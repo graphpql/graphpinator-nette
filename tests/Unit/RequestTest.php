@@ -21,7 +21,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
                 return '{"query":"query {}", "variables": {"var1":"varValue"}, "operationName": "opName"}';
             },
         );
-        $request = \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        $request = (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
 
         self::assertSame('query {}', $request->getQuery());
         self::assertSame(['var1' => 'varValue'], (array) $request->getVariables());
@@ -43,7 +43,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
                 return 'query {}';
             },
         );
-        $request = \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        $request = (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
 
         self::assertSame('query {}', $request->getQuery());
         self::assertSame([], (array) $request->getVariables());
@@ -55,7 +55,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript('/?query=query%20{}&variables={"var1":"varValue"}&operationName=opName'),
         );
-        $request = \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        $request = (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
 
         self::assertSame('query {}', $request->getQuery());
         self::assertSame(['var1' => 'varValue'], (array) $request->getVariables());
@@ -72,7 +72,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
             ['Content-Type' => 'multipart/form-data; boundary=--------boundary'],
             'POST',
         );
-        $request = \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        $request = (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
 
         self::assertSame('query {}', $request->getQuery());
         self::assertSame(['var1' => 'varValue'], (array) $request->getVariables());
@@ -91,7 +91,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
             null,
             'PATCH',
         );
-        \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
     }
 
     public function testInvalidMultipartGet() : void
@@ -106,7 +106,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
             ['Content-Type' => 'multipart/form-data; boundary=--------boundary'],
             'GET',
         );
-        \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
     }
 
     public function testInvalidStrict() : void
@@ -126,6 +126,6 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
                 return '{"query":"query {}", "variables": {"var1":"varValue"}, "bla": "opName"}';
             },
         );
-        \Graphpinator\Nette\Request::fromNetteHttpRequest($httpRequest);
+        (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
     }
 }

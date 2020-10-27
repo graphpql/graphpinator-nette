@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "infinityloop-dev/graphpinator": ">=0.21.1",
+    "infinityloop-dev/graphpinator": ">=0.23",
     "nette/http": "^3.0",
     "nette/application": "^3.0",
     "latte/latte": "^2.7",
