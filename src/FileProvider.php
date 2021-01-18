@@ -15,7 +15,7 @@ final class FileProvider implements \Graphpinator\Module\Upload\FileProvider
         $this->request = $request;
     }
 
-    public function getMap() : \Graphpinator\Json
+    public function getMap() : \Infinityloop\Utils\Json\MapJson
     {
         return \Graphpinator\Json::fromString($this->request->getPost('map'));
     }
