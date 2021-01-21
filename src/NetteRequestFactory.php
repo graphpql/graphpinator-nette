@@ -29,7 +29,7 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
 
         if (\is_string($contentType) && \str_starts_with($contentType, 'multipart/form-data')) {
             if ($method === 'POST' && \array_key_exists('operations', $this->request->getPost())) {
-                return $this->applyJsonFactory(\Graphpinator\Json::fromString($this->request->getPost('operations')));
+                return $this->applyJsonFactory(\Infinityloop\Utils\Json::fromString($this->request->getPost('operations')));
             }
 
             throw new \Graphpinator\Exception\Request\InvalidMultipartRequest();
@@ -40,20 +40,20 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
                 return new \Graphpinator\Request\Request($this->request->getRawBody()
                     ?? '');
             case 'application/json':
-                return $this->applyJsonFactory(\Graphpinator\Json::fromString($this->request->getRawBody()
+                return $this->applyJsonFactory(\Infinityloop\Utils\Json::fromString($this->request->getRawBody()
                     ?? '{}'));
             default:
                 $params = $this->request->getQuery();
 
                 if (\array_key_exists('variables', $params)) {
-                    $params['variables'] = \Graphpinator\Json::fromString($params['variables'])->toObject();
+                    $params['variables'] = \Infinityloop\Utils\Json::fromString($params['variables'])->toNative();
                 }
 
-                return $this->applyJsonFactory(\Graphpinator\Json::fromObject((object) $params));
+                return $this->applyJsonFactory(\Infinityloop\Utils\Json::fromNative((object) $params));
         }
     }
 
-    private function applyJsonFactory(\Graphpinator\Json $json) : \Graphpinator\Request\Request
+    private function applyJsonFactory(\Infinityloop\Utils\Json $json) : \Graphpinator\Request\Request
     {
         $jsonFactory = new \Graphpinator\Request\JsonRequestFactory($json, $this->strict);
 
