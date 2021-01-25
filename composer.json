@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "infinityloop-dev/graphpinator": "^1.0-rc3",
+    "infinityloop-dev/graphpinator": "^1.0-rc5",
     "nette/http": "^3.0",
     "nette/application": "^3.0",
     "latte/latte": "^2.7",
@@ -20,7 +20,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9.3",
-    "infection/infection": "^0.18",
+    "infection/infection": "^0.20",
     "infinityloop-dev/coding-standard": "dev-master"
   },
   "scripts": {
