@@ -3,8 +3,12 @@ name: PHP
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+    - '**.md'
   pull_request:
     branches: [ master ]
+    paths-ignore:
+    - '**.md'
 
 jobs:
   tests:
@@ -16,7 +20,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '8.0'
         ini-values: zend.assertions=1, assert.exception=1
         coverage: xdebug
       env:
@@ -31,11 +35,62 @@ jobs:
     - name: Tests
       run: composer run-script phpunit
 
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.14
+      with:
+        file: './build/phpunit.clover.xml'
+
+  mutation:
+    runs-on: ubuntu-latest
+    needs: [tests]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        ini-values: zend.assertions=1, assert.exception=1
+        coverage: xdebug
+      env:
+        update: true
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
     - name: Mutation tests
       run: composer run-script infection
 
+  phpstan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        ini-values: zend.assertions=1, assert.exception=1
+      env:
+        update: true
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Phpstan
+      run: composer run-script phpstan
+
   codestyle:
     runs-on: ubuntu-latest
+    if: ${{ false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -43,7 +98,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
         env:
           update: true
 
