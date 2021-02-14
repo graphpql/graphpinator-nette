@@ -8,12 +8,9 @@ final class FileProvider implements \Graphpinator\Module\Upload\FileProvider
 {
     use \Nette\SmartObject;
 
-    private \Nette\Http\Request $request;
-
-    public function __construct(\Nette\Http\Request $request)
-    {
-        $this->request = $request;
-    }
+    public function __construct(
+        private \Nette\Http\Request $request,
+    ) {}
 
     public function getMap() : ?\Infinityloop\Utils\Json\MapJson
     {

@@ -8,14 +8,10 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
 {
     use \Nette\SmartObject;
 
-    private \Nette\Http\Request $request;
-    private bool $strict;
-
-    public function __construct(\Nette\Http\Request $request, bool $strict = true)
-    {
-        $this->request = $request;
-        $this->strict = $strict;
-    }
+    public function __construct(
+        private \Nette\Http\Request $request,
+        private bool $strict = true,
+    ) {}
 
     public function create() : \Graphpinator\Request\Request
     {

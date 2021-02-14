@@ -11,7 +11,8 @@
     }
   ],
   "require": {
-    "infinityloop-dev/graphpinator": "^1.0-rc5",
+    "infinityloop-dev/graphpinator": "^1.0-rc7",
+    "infinityloop-dev/graphpinator-printer": "^1.0",
     "nette/http": "^3.0",
     "nette/application": "^3.0",
     "latte/latte": "^2.7",

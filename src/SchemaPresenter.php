@@ -6,18 +6,18 @@ namespace Graphpinator\Nette;
 
 final class SchemaPresenter extends \Nette\Application\UI\Presenter
 {
-    private \Graphpinator\Type\Schema $schema;
-
-    public function __construct(\Graphpinator\Type\Schema $schema)
+    public function __construct(
+        private \Graphpinator\Type\Schema $schema,
+    )
     {
         parent::__construct();
-
-        $this->schema = $schema;
     }
 
     public function actionDefault() : void
     {
+        $printer = new \Graphpinator\Printer\Printer(sorter: new \Graphpinator\Printer\TypeKindSorter());
+
         $this->template->setFile(__DIR__ . '/schema.latte');
-        $this->template->schema = $this->schema->printSchema(new \Graphpinator\Utils\Sort\TypeKindSorter());
+        $this->template->schema = $printer->printSchema($this->schema);
     }
 }
