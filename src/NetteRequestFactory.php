@@ -18,7 +18,7 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
         $method = $this->request->getMethod();
 
         if (!\in_array($method, ['GET', 'POST'], true)) {
-            throw new \Graphpinator\Exception\Request\InvalidMethod();
+            throw new \Graphpinator\Request\Exception\InvalidMethod();
         }
 
         $contentType = $this->request->getHeader('Content-Type');
@@ -28,7 +28,7 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
                 return $this->applyJsonFactory(\Infinityloop\Utils\Json::fromString($this->request->getPost('operations')));
             }
 
-            throw new \Graphpinator\Exception\Request\InvalidMultipartRequest();
+            throw new \Graphpinator\Request\Exception\InvalidMultipartRequest();
         }
 
         switch ($contentType) {
