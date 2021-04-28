@@ -81,7 +81,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidMethod() : void
     {
-        $this->expectException(\Graphpinator\Exception\Request\InvalidMethod::class);
+        $this->expectException(\Graphpinator\Request\Exception\InvalidMethod::class);
 
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
@@ -96,7 +96,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidMultipartGet() : void
     {
-        $this->expectException(\Graphpinator\Exception\Request\InvalidMultipartRequest::class);
+        $this->expectException(\Graphpinator\Request\Exception\InvalidMultipartRequest::class);
 
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
@@ -111,7 +111,7 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidStrict() : void
     {
-        $this->expectException(\Graphpinator\Exception\Request\UnknownKey::class);
+        $this->expectException(\Graphpinator\Request\Exception\UnknownKey::class);
 
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
