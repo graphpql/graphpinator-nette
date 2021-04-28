@@ -13,7 +13,7 @@ final class SchemaPresenter extends \Nette\Application\UI\Presenter
         parent::__construct();
     }
 
-    public function actionDefault() : void
+    public function actionHtml() : void
     {
         $printer = new \Graphpinator\Printer\Printer(new \Graphpinator\Printer\HtmlVisitor(), new \Graphpinator\Printer\TypeKindSorter());
 
@@ -21,9 +21,9 @@ final class SchemaPresenter extends \Nette\Application\UI\Presenter
         $this->template->schema = $printer->printSchema($this->schema);
     }
 
-    public function actionText() : void
+    public function actionFile() : void
     {
-        $printer = new \Graphpinator\Printer\Printer(new \Graphpinator\Printer\TextVisitor(), new \Graphpinator\Printer\TypeKindSorter());
+        $printer = new \Graphpinator\Printer\Printer(sorter: new \Graphpinator\Printer\TypeKindSorter());
         $response = new \Graphpinator\Nette\TextFileResponse($printer->printSchema($this->schema));
 
         $this->sendResponse($response);
