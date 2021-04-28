@@ -2,16 +2,9 @@
 <html lang="en">
 <head>
     <title>Schema.graphql</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-okaidia.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/match-braces/prism-match-braces.min.css" rel="stylesheet">
-    <style>body { background: #272822 } .token.description{ color:grey } .token.operator{ color: red } .token.brace-square{ color: orange }</style>
+    <link href="https://ghcdn.rawgit.org/infinityloop-dev/graphpinator-printer/master/src/theme/default.css" rel="stylesheet">
 </head>
 <body>
-    <pre class="language-graphql line-numbers match-braces"><code>{$schema}</code></pre>
-    <script n:nonce src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
-    <script n:nonce src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-graphql.min.js"></script>
-    <script n:nonce src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script n:nonce src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/match-braces/prism-match-braces.min.js"></script>
+    {$schema|noescape}
 </body>
 </html>
