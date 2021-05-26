@@ -10,7 +10,9 @@ final class FileProvider implements \Graphpinator\Module\Upload\FileProvider
 
     public function __construct(
         private \Nette\Http\Request $request,
-    ) {}
+    )
+    {
+    }
 
     public function getMap() : ?\Infinityloop\Utils\Json\MapJson
     {

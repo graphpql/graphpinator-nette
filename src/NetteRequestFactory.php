@@ -11,7 +11,9 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
     public function __construct(
         private \Nette\Http\Request $request,
         private bool $strict = true,
-    ) {}
+    )
+    {
+    }
 
     public function create() : \Graphpinator\Request\Request
     {
