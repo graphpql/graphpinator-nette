@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "infinityloop-dev/graphpinator": "^1.0-rc7",
+    "infinityloop-dev/graphpinator": "^1.0-rc25",
     "infinityloop-dev/graphpinator-printer": "^1.0",
     "nette/http": "^3.0",
     "nette/application": "^3.0",
@@ -20,6 +20,7 @@
     "guzzlehttp/psr7": "^1.0"
   },
   "require-dev": {
+    "infinityloop-dev/graphpinator-upload": "^1.0",
     "phpunit/phpunit": "^9.3",
     "infection/infection": "^0.20",
     "infinityloop-dev/coding-standard": "^0.2",

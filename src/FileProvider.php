@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Graphpinator\Nette;
 
-final class FileProvider implements \Graphpinator\Module\Upload\FileProvider
+final class FileProvider implements \Graphpinator\Upload\FileProvider
 {
     use \Nette\SmartObject;
 
