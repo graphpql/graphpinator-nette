@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This package includes adapters for various Graphpinator functionalities and a SchemaPresenter, which returns a response with generated GraphQL type lanaguege document.
+This package includes adapters for various Graphpinator functionalities and a SchemaPresenter, which returns a response with generated GraphQL type language document.
 
 ## Installation
 
