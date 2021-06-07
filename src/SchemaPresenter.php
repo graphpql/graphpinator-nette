@@ -7,7 +7,7 @@ namespace Graphpinator\Nette;
 final class SchemaPresenter extends \Nette\Application\UI\Presenter
 {
     public function __construct(
-        private \Graphpinator\Type\Schema $schema,
+        private \Graphpinator\Typesystem\Schema $schema,
     )
     {
         parent::__construct();
