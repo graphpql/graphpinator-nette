@@ -18,10 +18,12 @@ Install package using composer
 
 - `\Graphpinator\Nette\TracyLogger`
     - Implements logger interface for loggin in `\Graphpinator\Graphpinator`.
-- `\Graphpinator\Nette\FileProvider`
-    - Implements FileProvider interface needed by `infinityloop-dev/graphpinator-upload` module.
 - `\Graphpinator\Nette\NetteRequestFactory`
     - Implements RequestFactory and enables direct creation of `\Graphpinator\Request\Request` from Nette HTTP abstraction.
+- `\Graphpinator\Nette\FileProvider`
+    - Implements FileProvider interface needed by `infinityloop-dev/graphpinator-upload` module.
+- `\Graphpinator\Nette\NetteCache`
+    - Adapter from Nette Caching to Psr CacheInterface needed by `infinityloop-dev/graphpinator-persisted-queries` module.
 
 ### SchemaPresenter
 
