@@ -13,10 +13,11 @@
   "require": {
     "infinityloop-dev/graphpinator": "^1.1-rc2",
     "infinityloop-dev/graphpinator-printer": "^1.0",
-    "nette/http": "^3.0",
     "nette/application": "^3.0",
+    "nette/http": "^3.0",
     "latte/latte": "^2.7",
     "tracy/tracy": "^2.7",
+    "psr/simple-cache": "3.0",
     "guzzlehttp/psr7": "^1.0"
   },
   "require-dev": {
@@ -25,7 +26,7 @@
     "phpunit/phpunit": "^9.3",
     "infection/infection": "^0.25",
     "infinityloop-dev/coding-standard": "^0.2",
-    "phpstan/phpstan": "^0.12.85"
+    "phpstan/phpstan": "^1.0"
   },
   "scripts": {
     "phpunit": "phpunit tests",
