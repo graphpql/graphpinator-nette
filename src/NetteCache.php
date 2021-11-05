@@ -15,14 +15,14 @@ final class NetteCache implements \Psr\SimpleCache\CacheInterface
         $this->cache = new \Nette\Caching\Cache($storage, 'persisted_queries');
     }
 
-    public function get($key, $default = null)
+    public function get(string $key, mixed $default = null) : mixed
     {
         return $this->cache->load($key, static function () use ($default) {
             return $default;
         });
     }
 
-    public function set($key, $value, $ttl = null) : bool
+    public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null) : bool
     {
         $options = [];
         
@@ -35,27 +35,27 @@ final class NetteCache implements \Psr\SimpleCache\CacheInterface
         return true;
     }
 
-    public function delete($key) : void
+    public function delete(string $key) : bool
     {
     }
 
-    public function clear() : void
+    public function clear() : bool
     {
     }
 
-    public function getMultiple($keys, $default = null) : void
+    public function getMultiple(iterable $keys, mixed $default = null) : iterable
     {
     }
 
-    public function setMultiple($values, $ttl = null) : void
+    public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null) : bool
     {
     }
 
-    public function deleteMultiple($keys) : void
+    public function deleteMultiple(iterable $keys) : bool
     {
     }
 
-    public function has($key) : void
+    public function has(string $key) : bool
     {
     }
 }
