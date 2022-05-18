@@ -15,10 +15,10 @@
     "infinityloop-dev/graphpinator-printer": "^1.0",
     "nette/application": "^3.0",
     "nette/http": "^3.0",
-    "latte/latte": "^2.7",
+    "latte/latte": "^2.10.8 || ^3.0",
     "tracy/tracy": "^2.7",
     "psr/simple-cache": "3.0",
-    "guzzlehttp/psr7": "^1.0"
+    "guzzlehttp/psr7": "^1.8.4"
   },
   "require-dev": {
     "infinityloop-dev/graphpinator-upload": "^1.0",
@@ -48,6 +48,12 @@
   "autoload-dev": {
     "psr-4": {
       "Graphpinator\\Nette\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "infection/extension-installer": true
     }
   }
 }
