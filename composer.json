@@ -11,10 +11,11 @@
     }
   ],
   "require": {
-    "infinityloop-dev/graphpinator": "^1.1-rc2",
+    "infinityloop-dev/graphpinator": "^1.1",
     "infinityloop-dev/graphpinator-printer": "^1.0",
     "nette/application": "^3.0",
     "nette/http": "^3.0",
+    "nette/caching": "^3.0",
     "latte/latte": "^2.10.8 || ^3.0",
     "tracy/tracy": "^2.7",
     "psr/simple-cache": "3.0",
@@ -34,8 +35,8 @@
       "Composer\\Config::disableProcessTimeout",
       "infection -j$(nproc)"
     ],
-    "phpstan": "phpstan analyze --level 2 src",
-    "phpstan-next": "phpstan analyze --level 3 src",
+    "phpstan": "phpstan analyze --level 5 src",
+    "phpstan-next": "phpstan analyze --level 6 src",
     "phpstan-max": "phpstan analyze --level max src",
     "codestyle": "phpcs --standard=vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml --extensions=php src tests",
     "codestyle-fix": "phpcbf --standard=vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml --extensions=php src tests"
