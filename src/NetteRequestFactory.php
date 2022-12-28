@@ -29,7 +29,7 @@ final class NetteRequestFactory implements \Graphpinator\Request\RequestFactory
 
         if (\is_string($contentType) && \str_starts_with($contentType, 'multipart/form-data')) {
             if ($method === 'POST' && \array_key_exists('operations', $this->request->getPost())) {
-                return $this->applyJsonFactory(\Json::fromString($this->request->getPost('operations')));
+                return $this->applyJsonFactory(Json::fromString($this->request->getPost('operations')));
             }
 
             throw new \Graphpinator\Request\Exception\InvalidMultipartRequest();
