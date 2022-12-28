@@ -22,10 +22,10 @@ final class NetteCache implements \Psr\SimpleCache\CacheInterface
         });
     }
 
-    public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null) : bool
+    public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null) : bool
     {
         $options = [];
-        
+
         if (\is_int($ttl)) {
             $options[\Nette\Caching\Cache::EXPIRATION] = (new \Nette\Utils\DateTime())->getTimestamp() + $ttl;
         }
@@ -37,25 +37,31 @@ final class NetteCache implements \Psr\SimpleCache\CacheInterface
 
     public function delete(string $key) : bool
     {
+        return true;
     }
 
     public function clear() : bool
     {
+        return true;
     }
 
     public function getMultiple(iterable $keys, mixed $default = null) : iterable
     {
+        return [];
     }
 
-    public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null) : bool
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null) : bool
     {
+        return true;
     }
 
     public function deleteMultiple(iterable $keys) : bool
     {
+        return true;
     }
 
     public function has(string $key) : bool
     {
+        return false;
     }
 }
