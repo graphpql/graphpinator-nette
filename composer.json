@@ -19,7 +19,7 @@
     "latte/latte": "^2.10.8 || ^3.0",
     "tracy/tracy": "^2.7",
     "psr/simple-cache": "3.0",
-    "guzzlehttp/psr7": "^1.8.4"
+    "guzzlehttp/psr7": "^2.4.3"
   },
   "require-dev": {
     "infinityloop-dev/graphpinator-upload": "^1.0",
