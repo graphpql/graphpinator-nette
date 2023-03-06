@@ -27,7 +27,7 @@ final class NetteCache implements \Psr\SimpleCache\CacheInterface
         $options = [];
 
         if (\is_int($ttl)) {
-            $options[\Nette\Caching\Cache::EXPIRATION] = (new \Nette\Utils\DateTime())->getTimestamp() + $ttl;
+            $options[\Nette\Caching\Cache::Expire] = (new \Nette\Utils\DateTime())->getTimestamp() + $ttl;
         }
 
         $this->cache->save($key, $value, $options);
