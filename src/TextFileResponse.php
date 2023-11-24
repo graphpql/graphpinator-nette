@@ -6,8 +6,6 @@ namespace Graphpinator\Nette;
 
 final class TextFileResponse implements \Nette\Application\Response
 {
-    use \Nette\SmartObject;
-
     public function __construct(
         private string $content,
     )
@@ -16,7 +14,7 @@ final class TextFileResponse implements \Nette\Application\Response
 
     public function send(\Nette\Http\IRequest $httpRequest, \Nette\Http\IResponse $httpResponse) : void
     {
-        $httpResponse->setContentType('text/plain');
+        $httpResponse->setContentType('application/graphql');
         $httpResponse->setHeader('Content-Disposition', 'attachment;filename="schema.graphql"');
         $httpResponse->setHeader('Content-Length', (string) \strlen($this->content));
 
