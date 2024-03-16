@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This package includes adapters for various Graphpinator functionalities and a SchemaPresenter, which returns a response with generated GraphQL type language document.
+This package includes adapters and tools to easily integrate Graphpinator into a Nette application.
 
 ## Installation
 
@@ -175,7 +175,7 @@ services:
     - App\GraphQL\Public\Schema(@publicContainer)
 ```
 
-It is reccomended to use a separate class for each Schema so that it can be easily registered as a separate service and injected into a presenter.
+It is reccomended to use a separate class for each `Schema` so that it can be easily registered as a separate service and injected into a presenter.
 
 ```php
 <?php declare(strict_types = 1);
@@ -186,7 +186,9 @@ final class Schema extends \Graphpinator\Typesystem\Schema
 {
     public function __construct(\Graphpiantor\SimpleContainer $container)
     {
-        parent::__construct($container, $container->getType('Query'), $container->getType('Mutation'));    
+        parent::__construct($container, $container->getType('Query'), $container->getType('Mutation'));
+
+        $this->addDescription('My GraphQL schema');
     }
 }
 ```
