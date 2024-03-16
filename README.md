@@ -145,7 +145,7 @@ This interface is than injected into the abstract type instead of the concrete t
 ### Multiple schemas
 
 Some more sophisticated applications may require to host multiple different GraphQL schemas with different purposes.
-This is achieveble using a following configuration.
+In order to do this, we need to use a different approach when configuring the DI.
 
 ```neon
 # Search and register all the types in directives in a given namespace - and also append a tag to those services
