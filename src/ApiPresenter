@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types = 1);
+
+namespace App\Module\Api\Presenter;
+
+use \Nette\Application\Responses\TextResponse;
+
+final class ApiPresenter implements \Nette\Application\IPresenter
+{
+    private \Graphpinator\Graphpinator $graphpinator;
+
+    public function __construct(
+        \Graphpinator\Typesystem\Schema $schema,
+        private \Nette\Http\IRequest $request,
+        private \Nette\Http\IResponse $response,
+        private \Graphpinator\Nette\NetteCache $cache,
+    )
+    {
+        $this->graphpinator = new \Graphpinator\Graphpinator(
+            $schema,
+            !\App\Bootstrap::isDebugMode(),
+            new \Graphpinator\Module\ModuleSet([
+                new \Graphpinator\QueryCost\MaxDepthModule(15),
+                new \Graphpinator\PersistedQueries\PersistedQueriesModule($schema, $this->cache),
+            ]),
+            new \Graphpinator\Nette\TracyLogger(),
+        );
+    }
+
+    public function run(\Nette\Application\Request $request) : \Nette\Application\Response
+    {
+        return match ($this->request->getMethod()) {
+            'HEAD', 'OPTIONS' => $this->createPreflightResponse(),
+            'GET', 'POST' => $this->createApiResponse(),
+            default => throw new \Nette\Application\BadRequestException('Only HEAD, OPTIONS, GET, POST methods are supported.'),
+        };
+    }
+
+    private function createPreflightResponse() : TextResponse
+    {
+        $this->response->setHeader('Access-Control-Allow-Credentials', 'true');
+        $this->response->setHeader('Access-Control-Allow-Origin', 'https://www.nemovizor.cz');
+        $this->response->setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, OPTIONS');
+        $this->response->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        $this->response->setHeader('Access-Control-Max-Age', '86400');
+
+        return new TextResponse('OK');
+    }
+
+    private function createApiResponse() : TextResponse
+    {
+        $this->sessionTracker->track();
+
+        return new TextResponse(
+            $this->graphpinator->run(new \Graphpinator\Nette\NetteRequestFactory($this->request, false))->toString(),
+        );
+    }
+}
