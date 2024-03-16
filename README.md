@@ -16,7 +16,7 @@ Install package using composer
 
 ### ApiPresenter
 
-Simple version of a presenter to execute Graphql API requests against a given schema. It can be extended to alter its functionality (for example by overriding the `getEnabledModules` function) or it can serve as an inspiration to include the functionality in your own presenters.
+Simple version of a presenter to execute GraphQL API requests against a given schema. It can be extended to alter its functionality (for example by overriding the `getEnabledModules` function) or it can serve as an inspiration to include the functionality in your own presenters.
 
 Presenter is enabled by creating a route:
 
@@ -27,10 +27,18 @@ $router[] = new Route('/', [
 ]);
 ```
 
+You also need to register the module with presenters to map to the correct namespace.
+
+```neon
+application:
+    mapping:
+        Graphpinator: 'Graphpinator\Nette\*Presenter'
+```
+
 There needs to be a `Schema` and a `NetteCache` service available in your DI container so that it can be injected into the presenter.
 
 ```neon
-# Automatically find and register all types and directives located in GraphQl namespace as services
+# Automatically find and register all types and directives located in `GraphQl` namespace as services
 search:
     graphql:
         in: '%appDir%/GraphQL'
@@ -41,7 +49,7 @@ services:
     # Register a NetteCache adapter
     - Graphpinator\Nette\NetteCache
 
-    # The SimpleContainer is a container of Graphql types
+    # The SimpleContainer is a container of GraphQL types
     # It is automatically injected by all types and directives as Nette automatically detects a typehint in SimpleContainers contructor
     - Graphpinator\SimpleContainer
 
@@ -107,17 +115,7 @@ It is also required to pass a location of your API endpoint, to which GraphiQL w
 
 ```neon
 services:
-    Graphpinator\Nette\GraphiQlPresenter(':Api:Graphql:default')
-```
-
-### Presenter Mapping
-
-In order to use presenters, it is required to register the application-module to correct namespace.
-
-```neon
-application:
-    mapping:
-        Graphpinator: 'Graphpinator\Nette\*Presenter'
+    - Graphpinator\Nette\GraphiQlPresenter(':Api:Graphql:default')
 ```
 
 ### Cyclic dependendencies
@@ -144,7 +142,54 @@ services:
     )
 ```
 
-This interface is than injected into the abstract type to break the dependency cycle.
+This interface is than injected into the abstract type instead of the concrete types in order to break the dependency cycle.
+
+### Multiple schemas
+
+Some more sophisticated applications may require to host multiple different GraphQL schemas with different purposes.
+This is achieveble using a following configuration.
+
+```neon
+# Search and register all the types in directives in a given namespace - and also append a tag to those services
+search:
+    graphqlPublicTypes:
+        in: '%appDir%/GraphQL/Public'
+        extends:
+            - Graphpinator\Typesystem\Contract\NamedType
+        tags:
+            - graphql.public.types
+    graphqlPublicDirectives:
+        in: '%appDir%/GraphQL/Public'
+        extends:
+            - Graphpinator\Typesystem\Contract\Directive
+        tags:
+            - graphql.public.directives
+services:
+    # Register a container and inject services with a tag
+    publicContainer:
+        factory: Graphpinator\SimpleContainer(
+            tagged( graphql.public.types )
+            tagged( graphql.public.directives )
+        )
+    # Register a Schema using a container with the correct set of types
+    - App\GraphQL\Public\Schema(@publicContainer)
+```
+
+It is reccomended to use a separate class for each Schema so that it can be easily registered as a separate service and injected into a presenter.
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\GraphQL\Public;
+
+final class Schema extends \Graphpinator\Typesystem\Schema
+{
+    public function __construct(\Graphpiantor\SimpleContainer $container)
+    {
+        parent::__construct($container, $container->getType('Query'), $container->getType('Mutation'));    
+    }
+}
+```
 
 ### Adapters
 
