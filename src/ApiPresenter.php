@@ -43,7 +43,7 @@ final class ApiPresenter implements \Nette\Application\IPresenter
     private function createPreflightResponse() : TextResponse
     {
         $this->response->setHeader('Access-Control-Allow-Credentials', 'true');
-        $this->response->setHeader('Access-Control-Allow-Origin', 'https://www.nemovizor.cz');
+        $this->response->setHeader('Access-Control-Allow-Origin', '*');
         $this->response->setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, OPTIONS');
         $this->response->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         $this->response->setHeader('Access-Control-Max-Age', '86400');
