@@ -15,11 +15,14 @@ final class ApiPresenter implements \Nette\Application\IPresenter
         private \Nette\Http\IRequest $request,
         private \Nette\Http\IResponse $response,
         private \Graphpinator\Nette\NetteCache $cache,
+        private bool $debugMode = false,
     )
     {
         $this->graphpinator = new \Graphpinator\Graphpinator(
             $schema,
-            !\App\Bootstrap::isDebugMode(),
+            $debugMode
+                ? \Graphpinator\ErrorHandlingMode::OUTPUTABLE
+                : \Graphpinator\ErrorHandlingMode::ALL,
             new \Graphpinator\Module\ModuleSet([
                 new \Graphpinator\QueryCost\MaxDepthModule(15),
                 new \Graphpinator\PersistedQueries\PersistedQueriesModule($schema, $this->cache),
