@@ -144,6 +144,8 @@ services:
     )
 ```
 
+This interface is than injected into the abstract type to break the dependency cycle.
+
 ### Adapters
 
 - `\Graphpinator\Nette\TracyLogger`
