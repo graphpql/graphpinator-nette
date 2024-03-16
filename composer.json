@@ -1,7 +1,7 @@
 {
   "name": "infinityloop-dev/graphpinator-nette",
   "description": "Graphpinator adapters and addons for Nette framework.",
-  "homepage": "https://www.infinityloop.dev/",
+  "homepage": "https://github.com/graphpql",
   "type": "library",
   "license": ["MIT"],
   "authors": [
