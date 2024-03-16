@@ -14,16 +14,62 @@ Install package using composer
 
 ## How to use
 
-### Adapters
+### ApiPresenter
 
-- `\Graphpinator\Nette\TracyLogger`
-    - Implements logger interface for logging in `\Graphpinator\Graphpinator`.
-- `\Graphpinator\Nette\NetteRequestFactory`
-    - Implements `RequestFactory` and enables direct creation of `\Graphpinator\Request\Request` from Nette HTTP abstraction.
-- `\Graphpinator\Nette\FileProvider`
-    - Implements `FileProvider` interface needed by `infinityloop-dev/graphpinator-upload` module.
-- `\Graphpinator\Nette\NetteCache`
-    - Adapter from Nette Caching to Psr CacheInterface needed by `infinityloop-dev/graphpinator-persisted-queries` module.
+Simple version of a presenter to execute Graphql API requests against a given schema. It can be extended to alter its functionality (for example by overriding the `getEnabledModules` function) or it can serve as an inspiration to include the functionality in your own presenters.
+
+Presenter is enabled by creating a route:
+
+```php
+$router[] = new Route('/', [
+    'module' => 'Graphpinator',
+    'presenter' => 'Api',
+]);
+```
+
+There needs to be a `Schema` and a `NetteCache` service available in your DI container so that it can be injected into the presenter.
+
+```neon
+# Automatically find and register all types and directives located in GraphQl namespace as services
+search:
+    graphql:
+        in: '%appDir%/GraphQL'
+        extends:
+            - Graphpinator\Typesystem\Contract\NamedType
+            - Graphpinator\Typesystem\Contract\Directive
+services:
+    # Register a NetteCache adapter
+    - Graphpinator\Nette\NetteCache
+
+    # The SimpleContainer is a container of Graphql types
+    # It is automatically injected by all types and directives as Nette automatically detects a typehint in SimpleContainers contructor
+    - Graphpinator\SimpleContainer
+
+    # Any additional types must be also registred to become available in the type container
+    - Graphpinator\ExtraTypes\EmailAddressType
+    - Graphpinator\ExtraTypes\PhoneNumberType
+
+    # Register a Schema
+    - Graphpinator\Typesystem\Schema(
+        @Graphpinator\SimpleContainer, # Container of types
+        @App\GraphQL\Query, # Query type
+        null, # Mutation type
+        null # Subscription type
+    )
+
+   # Alternativelly you may use the named service and add a setup to the Schema service
+   schema.public:
+        factory: Graphpinator\Typesystem\Schema(
+            @Graphpinator\SimpleContainer,
+            @App\GraphQL\Query,
+            @App\GraphQL\Mutation,
+            null
+        )
+        setup:
+            - setDescription("""
+            My GraphQL API
+            """)
+```
 
 ### SchemaPresenter
 
@@ -40,6 +86,8 @@ $router[] = new Route('/schema.graphql',
     'action' => 'html',
 ]);
 ```
+
+There needs to be a `Schema` service available in your DI container so that it can be injected into the presenter.
 
 ### GraphiQLPresenter
 
@@ -71,3 +119,38 @@ application:
     mapping:
         Graphpinator: 'Graphpinator\Nette\*Presenter'
 ```
+
+### Cyclic dependendencies
+
+When using abstract types, the cyclic dependencies must be avoided using accessors. Nette makes it easy by automatically providing implementation for a accessor interface using a simple DI condifuration.
+    
+```php
+interface SlideAccessor
+{
+    public function getSlideSingle() : SlideSingle;
+
+    public function getSlideDouble() : SlideDouble;
+
+    public function getSlideTriple() : SlideTriple;
+}
+```
+
+```neon
+services:
+    - SlideAccessor(
+        slideSingle: @SlideSingle
+        slideDouble: @SlideDouble
+        slideTriple: @SlideTriple
+    )
+```
+
+### Adapters
+
+- `\Graphpinator\Nette\TracyLogger`
+    - Implements logger interface for logging in `\Graphpinator\Graphpinator`.
+- `\Graphpinator\Nette\NetteRequestFactory`
+    - Implements `RequestFactory` and enables direct creation of `\Graphpinator\Request\Request` from Nette HTTP abstraction.
+- `\Graphpinator\Nette\FileProvider`
+    - Implements `FileProvider` interface needed by `infinityloop-dev/graphpinator-upload` module.
+- `\Graphpinator\Nette\NetteCache`
+    - Adapter from Nette Caching to Psr CacheInterface needed by `infinityloop-dev/graphpinator-persisted-queries` module.
