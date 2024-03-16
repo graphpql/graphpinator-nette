@@ -95,8 +95,6 @@ $router[] = new Route('/schema.graphql',
 ]);
 ```
 
-There needs to be a `Schema` service available in your DI container so that it can be injected into the presenter.
-
 ### GraphiQLPresenter
 
 Presenter which include [GraphiQL](https://github.com/graphql/graphiql/tree/main/packages/graphiql#readme), a graphical interface to interact with your schema.
