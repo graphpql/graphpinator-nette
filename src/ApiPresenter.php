@@ -15,7 +15,7 @@ final class ApiPresenter implements \Nette\Application\IPresenter
         private \Nette\Http\IRequest $request,
         private \Nette\Http\IResponse $response,
         private \Graphpinator\Nette\NetteCache $cache,
-        private bool $debugMode = false,
+        bool $debugMode = false,
     )
     {
         $this->graphpinator = new \Graphpinator\Graphpinator(
@@ -24,7 +24,7 @@ final class ApiPresenter implements \Nette\Application\IPresenter
                 ? \Graphpinator\ErrorHandlingMode::OUTPUTABLE
                 : \Graphpinator\ErrorHandlingMode::ALL,
             new \Graphpinator\Module\ModuleSet([
-                new \Graphpinator\QueryCost\MaxDepthModule(15),
+                //new \Graphpinator\QueryCost\MaxDepthModule(15),
                 new \Graphpinator\PersistedQueries\PersistedQueriesModule($schema, $this->cache),
             ]),
             new \Graphpinator\Nette\TracyLogger(),

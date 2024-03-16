@@ -10,9 +10,9 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
     {
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
-            null,
-            null,
-            null,
+            [],
+            [],
+            [],
             ['Content-Type' => 'application/json'],
             'GET',
             null,
@@ -32,9 +32,9 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
     {
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
-            null,
-            null,
-            null,
+            [],
+            [],
+            [],
             ['Content-Type' => 'application/graphql'],
             'GET',
             null,
@@ -67,8 +67,8 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
             ['map' => '[]', 'operations' => '{"query":"query {}", "variables":{"var1":"varValue"}, "operationName":"opName"}'],
-            null,
-            null,
+            [],
+            [],
             ['Content-Type' => 'multipart/form-data; boundary=--------boundary'],
             'POST',
         );
@@ -85,10 +85,10 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
 
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
-            null,
-            null,
-            null,
-            null,
+            [],
+            [],
+            [],
+            [],
             'PATCH',
         );
         (new \Graphpinator\Nette\NetteRequestFactory($httpRequest))->create();
@@ -101,8 +101,8 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
             ['map' => '[]', 'operations' => '{"query":"query {}", "variables":{"var1":"varValue"}, "operationName":"opName"}'],
-            null,
-            null,
+            [],
+            [],
             ['Content-Type' => 'multipart/form-data; boundary=--------boundary'],
             'GET',
         );
@@ -115,9 +115,9 @@ final class RequestTest extends \PHPUnit\Framework\TestCase
 
         $httpRequest = new \Nette\Http\Request(
             new \Nette\Http\UrlScript(),
-            null,
-            null,
-            null,
+            [],
+            [],
+            [],
             ['Content-Type' => 'application/json'],
             'GET',
             null,
