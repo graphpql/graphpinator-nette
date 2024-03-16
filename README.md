@@ -188,7 +188,7 @@ final class Schema extends \Graphpinator\Typesystem\Schema
     {
         parent::__construct($container, $container->getType('Query'), $container->getType('Mutation'));
 
-        $this->addDescription('My GraphQL schema');
+        $this->setDescription('My GraphQL API');
     }
 }
 ```
