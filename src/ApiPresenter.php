@@ -50,8 +50,6 @@ final class ApiPresenter implements \Nette\Application\IPresenter
 
     private function createApiResponse() : TextResponse
     {
-        $this->sessionTracker->track();
-
         return new TextResponse(
             $this->graphpinator->run(new \Graphpinator\Nette\NetteRequestFactory($this->request, false))->toString(),
         );
