@@ -6,7 +6,7 @@ namespace Graphpinator\Nette;
 
 use \Nette\Application\Responses\TextResponse;
 
-final class ApiPresenter implements \Nette\Application\IPresenter
+class ApiPresenter implements \Nette\Application\IPresenter
 {
     private \Graphpinator\Graphpinator $graphpinator;
 
@@ -23,10 +23,7 @@ final class ApiPresenter implements \Nette\Application\IPresenter
             $debugMode
                 ? \Graphpinator\ErrorHandlingMode::OUTPUTABLE
                 : \Graphpinator\ErrorHandlingMode::ALL,
-            new \Graphpinator\Module\ModuleSet([
-                //new \Graphpinator\QueryCost\MaxDepthModule(15),
-                new \Graphpinator\PersistedQueries\PersistedQueriesModule($schema, $this->cache),
-            ]),
+            $this->getEnabledModules(),
             new \Graphpinator\Nette\TracyLogger(),
         );
     }
@@ -38,6 +35,14 @@ final class ApiPresenter implements \Nette\Application\IPresenter
             'GET', 'POST' => $this->createApiResponse(),
             default => throw new \Nette\Application\BadRequestException('Only HEAD, OPTIONS, GET, POST methods are supported.'),
         };
+    }
+
+    protected function getEnabledModules() : \Graphpinator\Module\ModuleSet
+    {
+        return new \Graphpinator\Module\ModuleSet([
+            //new \Graphpinator\QueryCost\MaxDepthModule(15),
+            new \Graphpinator\PersistedQueries\PersistedQueriesModule($schema, $this->cache),
+        ]);
     }
 
     private function createPreflightResponse() : TextResponse
