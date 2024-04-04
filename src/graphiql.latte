@@ -47,7 +47,7 @@
     root.render(
         React.createElement(GraphiQL, {
             fetcher: GraphiQL.createFetcher({
-                url: '{plink $apiLocation}',
+                url: {plink $apiLocation},
             }),
             defaultEditorToolsVisibility: true,
         }),
